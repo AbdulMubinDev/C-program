@@ -20,7 +20,7 @@ double getNumber() {
             return num;
         } else {
             printf("\nInvalid input! Please enter a valid number: ");
-            while (getchar() != '\n'); // Clear input buffer
+            while (getchar() != '\n'); 
         }
     }
 }
@@ -39,8 +39,7 @@ int addition() {
     while (1) {
         printf("Press # to return to the main menu, 0 to close the program, or 'c' to redo addition: ");
         scanf(" %c", &choice);
-        while (getchar() != '\n'); // Clear input buffer
-
+        while (getchar() != '\n');
         if (choice == '#') {
             return 1;
         } else if (choice == '0') {
@@ -68,7 +67,7 @@ int subtraction() {
     while (1) {
         printf("Press # to return to the main menu, 0 to close the program, or 'c' to redo subtraction: ");
         scanf(" %c", &choice);
-        while (getchar() != '\n'); // Clear input buffer
+        while (getchar() != '\n'); 
 
         if (choice == '#') {
             return 1;
@@ -97,7 +96,7 @@ int multiplication() {
     while (1) {
         printf("Press # to return to the main menu, 0 to close the program, or 'c' to redo multiplication: ");
         scanf(" %c", &choice);
-        while (getchar() != '\n'); // Clear input buffer
+        while (getchar() != '\n'); 
 
         if (choice == '#') {
             return 1;
@@ -130,7 +129,7 @@ int division() {
     while (1) {
         printf("Press # to return to the main menu, 0 to close the program, or 'c' to redo division: ");
         scanf(" %c", &choice);
-        while (getchar() != '\n'); // Clear input buffer
+        while (getchar() != '\n'); 
 
         if (choice == '#') {
             return 1;
@@ -153,7 +152,7 @@ int main() {
         printf("\nPlease select one option for basic mathematics operations: ");
         if (scanf("%d", &option) != 1) {
             printf("Invalid input! Please enter a valid option.\n");
-            while (getchar() != '\n'); // Clear input buffer
+            while (getchar() != '\n'); 
             continue;
         }
 

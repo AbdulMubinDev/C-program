@@ -8,8 +8,7 @@ int main() {
     char input[20];
 
     srand(time(NULL));
-    random = (rand() % 100) + 1; // Generate random number between 1 and 100
-
+    random = (rand() % 100) + 1; 
     printf("Welcome To This Guessing Game!!!\n");
 
     while (1) {
@@ -19,13 +18,11 @@ int main() {
             continue;
         }
 
-        // Validate numeric input
         if (sscanf(input, "%d", &guess) != 1) {
             printf("Invalid input. Please enter a numeric value between 1 and 100.\n");
             continue;
         }
 
-        // Validate range
         if (guess < 1 || guess > 100) {
             printf("Invalid input. Please enter a number between 1 and 100.\n");
             continue;
