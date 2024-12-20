@@ -2,42 +2,45 @@
 #include <string.h>
 #include <ctype.h>
 
-char gradecalculate(double a) {
-    if (a >= 90) return 'A';
-    if (a >= 75) return 'B';
-    if (a >= 60) return 'C';
-    if (a >= 50) return 'D';
+// Function to calculate grade based on average marks
+char gradecalculate(double avg) {
+    if (avg >= 90) return 'A';
+    if (avg >= 75) return 'B';
+    if (avg >= 60) return 'C';
+    if (avg >= 50) return 'D';
     return 'F';
 }
 
+// Function to calculate the final result
 void finalresult(int a, int b, int e, int i, int m, double *avg, char *grade) {
     int sum = a + b + e + i + m;
     *avg = sum / 5.0; 
     *grade = gradecalculate(*avg); 
 }
 
-void markchecker(char studentname[]) {
+// Function to validate input marks
+int get_valid_marks(const char *subject) {
+    int marks;
+    char input[20];
+    do {
+        printf("Marks in %s (0-100): ", subject);
+        if (!fgets(input, sizeof(input), stdin)) {
+            printf("Input error. Try again.\n");
+            continue;
+        }
+        if (sscanf(input, "%d", &marks) != 1 || marks < 0 || marks > 100) {
+            printf("Invalid input. Please enter marks between 0 and 100.\n");
+            marks = -1; // Reset invalid marks
+        }
+    } while (marks < 0);
+    return marks;
+}
+
+// Function to process marks and calculate results
+void markchecker(const char *studentname) {
     int marksm, marksa, marksb, markse, marksi;
     char grade;
     double average;
-
-    // Function to validate input marks
-    int get_valid_marks(const char *subject) {
-        int marks;
-        char input[20];
-        do {
-            printf("Marks in %s (0-100): ", subject);
-            if (!fgets(input, sizeof(input), stdin)) {
-                printf("Input error. Try again.\n");
-                continue;
-            }
-            if (sscanf(input, "%d", &marks) != 1 || marks < 0 || marks > 100) {
-                printf("Invalid input. Please enter marks between 0 and 100.\n");
-                marks = -1; // Reset invalid marks
-            }
-        } while (marks < 0 || marks > 100);
-        return marks;
-    }
 
     // Get valid marks for each subject
     marksm = get_valid_marks("Math");
@@ -50,27 +53,23 @@ void markchecker(char studentname[]) {
     finalresult(marksa, marksb, markse, marksi, marksm, &average, &grade);
 
     printf("\n--------------------------------------------\n");
-    printf("| Student Name | %-30s |
-", studentname);
-    printf("| Average Marks | %-28.2f |
-", average);
-    printf("| Grade         | %-28c |
-", grade);
+    printf("| Student Name  | %-30s |\n", studentname);
+    printf("| Average Marks | %-28.2f |\n", average);
+    printf("| Grade         | %-28c |\n", grade);
     printf("--------------------------------------------\n");
 
     if (grade == 'F') {
-        printf("| Status        | %-28s |
-", "Failed");
+        printf("| Status        | %-28s |\n", "Failed");
     } else {
-        printf("| Status        | %-28s |
-", "Passed");
+        printf("| Status        | %-28s |\n", "Passed");
     }
     printf("--------------------------------------------\n");
 }
 
+// Function to handle option 1: Grade check
 void option1() {
     char studentname[50];  
-    int attemtsubj;
+    int attemptsubj;
     char input[20];
 
     printf("\nEnter student name (Just Nickname): ");
@@ -78,20 +77,20 @@ void option1() {
     studentname[strcspn(studentname, "\n")] = '\0'; // Remove newline character
 
     while (1) {
-        printf("How many subjects he/she attempted: ");
+        printf("How many subjects he/she attempted (5 required): ");
         if (!fgets(input, sizeof(input), stdin)) {
             printf("Input error. Try again.\n");
             continue;
         }
-        if (sscanf(input, "%d", &attemtsubj) != 1 || attemtsubj < 0) {
+        if (sscanf(input, "%d", &attemptsubj) != 1 || attemptsubj < 0) {
             printf("Invalid input. Please enter a valid number.\n");
             continue;
         }
 
-        if (attemtsubj < 5) {
+        if (attemptsubj < 5) {
             printf("%s was already failed because he/she didn't attempt all subjects.\n", studentname);
             return;
-        } else if (attemtsubj > 5) {
+        } else if (attemptsubj > 5) {
             printf("\nPlease enter the correct subject count because the total exam was on 5 subjects.\n");
         } else {
             break;
@@ -101,14 +100,15 @@ void option1() {
     markchecker(studentname); 
 }
 
+// Function to display routine information
 void routine() {
-    printf("In this season 5 subject test held. Here's the routine:\n");
+    printf("In this season, a 5-subject test was held. Here's the routine:\n");
     printf("--------------------------------------------\n");
-    printf("| Math | Arabic | Bangla | English | Islam |
-");
+    printf("| Math | Arabic | Bangla | English | Islam |\n");
     printf("--------------------------------------------\n");
 }
 
+// Main function
 int main() {
     int optioncheck;
     char input[20];
